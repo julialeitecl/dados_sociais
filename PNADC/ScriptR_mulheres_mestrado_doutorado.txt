@@ -1,0 +1,22 @@
+library(PNADcIBGE)
+library(survey)
+library("tidyverse")
+library(srvyr)
+library(openxlsx)
+
+
+PNADc4T2022 <- get_pnadc(year = 2022, quarter = 4, vars = c("V2007", "V3009A", "V3014")) #ABRINDO A BASE
+
+totalpop_porsexo <- svyby(~V2007, by = ~UF, PNADc4T2022, svytotal, na.rm = TRUE)
+
+
+
+totalmestradoedoutorado <- svyby(~interaction(V3009A,V3014), by = ~UF, PNADc4T2022, svytotal, na.rm = TRUE)
+
+totalmestradoedoutorado_porsexo <- svyby(~interaction(V2007,V3009A,V3014), by = ~UF, PNADc4T2022, svytotal, na.rm = TRUE)
+
+
+setwd("C:/Users/carla.cutrim/Desktop/Mulheres com mestrado e doutorado") 
+
+write.xlsx(totalmestradoedoutorado_porsexo, 'mulheres_mestrado_doutorado_4t2022_UF.xlsx')
+write.xlsx(totalpop_porsexo, 'totalpopulacao_porsexo_4t2022_UF.xlsx')

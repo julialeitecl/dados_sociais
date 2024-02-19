@@ -1,0 +1,65 @@
+library(PNADcIBGE)
+library(survey)
+library(tidyverse)
+library(srvyr)
+library(openxlsx)
+
+install.packages("summarytools")
+library(summarytools)
+
+# ABRINDO BASE DE DADOS
+PNADc3t2023 <- get_pnadc(year = 2023, quarter = 3, vars = c("V2007", "VD4019"))
+
+
+#Rendimento
+PNADc3t2023[["variables"]] <- mutate(PNADc3t2023[["variables"]], VD4019d = VD4019 * Habitual)#criando mais uma coluna
+
+
+PNADc3t2023[["variables"]] <- PNADc3t2023[["variables"]] %>%
+  select(Habitual, everything()) #colocando no in?cio da tabela
+
+
+PNADc3t2023[["variables"]] <- PNADc3t2023[["variables"]] %>%
+  mutate(Reg = case_when(
+    UF == "Rondônia"|UF == "Acre"|UF == "Amazonas"|UF == "Roraima"|UF == "Pará"|UF == "Amapá"|UF == "Tocantins" ~ "Norte",
+    UF == "Maranhão"|UF == "Piauí"|UF == "Ceará"|UF == "Rio Grande do Norte"|UF == "Paraíba"|UF == "Pernambuco"|UF == "Alagoas"|UF == "Sergipe"|UF == "Bahia" ~ "Nordeste",
+    UF == "Minas Gerais"|UF == "Espírito Santo"|UF == "Rio de Janeiro"|UF == "São Paulo" ~ "Sudeste",
+    UF == "Paraná"|UF == "Santa Catarina"|UF == "Rio Grande do Sul" ~ "Sul",
+    UF == "Mato Grosso do Sul"|UF == "Mato Grosso"|UF == "Goiás"|UF == "Distrito Federal" ~ "Centro Oeste")) #Criando as regiões
+
+dfSummary(PNADc3t2023[["variables"]]$Reg)
+estat_ufs <- dfSummary(PNADc3t2023[["variables"]]$UF)
+
+PNADc3t2023[["variables"]] <- PNADc3t2023[["variables"]] %>%
+  select(Reg, everything()) #colocando no in?cio da tabela
+
+
+
+rm()
+gc()
+
+#Calculando rendimento
+
+mediarendaM3t2023_mulher <- svymean(x=~VD4019d, design=subset(PNADc3t2023, V2007=="Mulher"), na.rm=TRUE)
+mediarendaM3t2023_homem <- svymean(x=~VD4019d, design=subset(PNADc3t2023, V2007=="Homem"), na.rm=TRUE)
+mediarendaM3t2023_total <- svymean(x=~VD4019d, PNADc3t2023, na.rm=TRUE)
+
+mediarendaM3t2023_mulher_brasildf <- as.data.frame(mediarendaM3t2023_mulher)
+mediarendaM3t2023_homem_brasildf <- as.data.frame(mediarendaM3t2023_homem)
+mediarendaM3t2023_total_brasildf <- as.data.frame(mediarendaM3t2023_total)
+
+Rendimento_3t2023M <- svyby(~VD4019d, by = ~UF, design = subset(PNADc3t2023, V2007 == "Mulher"), svymean, na.rm = TRUE)
+Rendimento_3t2023H <- svyby(~VD4019d, by = ~UF, design = subset(PNADc3t2023, V2007 == "Homem"), svymean, na.rm = TRUE)
+Rendimento_3t2023_total <- svyby(~VD4019d, by = ~UF, PNADc3t2023, svymean, na.rm = TRUE)
+
+
+setwd("S:/PROPOSTA/08 - Depso/03 - Bases de dados/Rendimento/Rendimento médio real habitual de todos os trabalhos_trimestral/2023_3t") 
+
+write.xlsx(mediarendaM3t2023_mulher, 'rendamedia_mulher_brasil_3t2023.xlsx')
+write.xlsx(mediarendaM3t2023_homem, 'rendamedia_homem_brasil_3t2023.xlsx')
+write.xlsx(mediarendaM3t2023_total, 'rendamedia_total_brasil_3t2023.xlsx')
+write.xlsx(Rendimento_3t2023M, 'rendamedia_mulher_UF_3t2023.xlsx')
+write.xlsx(Rendimento_3t2023H, 'rendamedia_homem_UF_3t2023.xlsx')
+write.xlsx(Rendimento_3t2023_total, 'rendamedia_total_UF_3t2023.xlsx')
+
+

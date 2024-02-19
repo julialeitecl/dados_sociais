@@ -1,0 +1,90 @@
+library(PNADcIBGE)
+install.packages("convey")
+install.packages("srvyr")
+library(survey)
+library(tidyverse)
+library(srvyr)
+library(openxlsx)
+install.packages("summarytools")
+library(summarytools)
+library(dplyr)
+library(magrittr)
+
+
+
+PNADC2022 <- get_pnadc(year = 2022, interview = 5) #abrindo a base
+
+#rendimento
+
+PNADC2022[["variables"]] <- mutate(PNADC2022[["variables"]], VD4046d = VD4046 * CO2)#criando mais uma coluna
+
+
+PNADC2022[["variables"]] <- PNADC2022[["variables"]] %>%
+  select(VD4046d, everything()) #colocando no in?cio da tabela
+
+#criando a tabela das regiões
+PNADC2022[["variables"]] <- PNADC2022[["variables"]] %>%
+  mutate(Reg = case_when(
+    UF == "Rondônia"|UF == "Acre"|UF == "Amazonas"|UF == "Roraima"|UF == "Pará"|UF == "Amapá"|UF == "Tocantins" ~ "Norte",
+    UF == "Maranhão"|UF == "Piauí"|UF == "Ceará"|UF == "Rio Grande do Norte"|UF == "Paraíba"|UF == "Pernambuco"|UF == "Alagoas"|UF == "Sergipe"|UF == "Bahia" ~ "Nordeste",
+    UF == "Minas Gerais"|UF == "Espírito Santo"|UF == "Rio de Janeiro"|UF == "São Paulo" ~ "Sudeste",
+    UF == "Paraná"|UF == "Santa Catarina"|UF == "Rio Grande do Sul" ~ "Sul",
+    UF == "Mato Grosso do Sul"|UF == "Mato Grosso"|UF == "Goiás"|UF == "Distrito Federal" ~ "Centro Oeste")) #Criando as regiões
+
+
+PNADC2022[["variables"]] <- PNADC2022[["variables"]] %>%
+  select(Reg, everything()) #colocando no in?cio da tabela
+
+#Calculando rendimento
+
+mediarenda_total_BR_2022 <- svytotal(~VD4046d, PNADC2022, na.rm=TRUE)
+mediarenda_total_BR_2022 <- as.data.frame(mediarenda_total_BR_2022)
+mediarenda_total_UF_2022 <- svyby(~VD4046d, by = ~UF, PNADC2022, svytotal, na.rm = TRUE)
+mediarenda_total_Reg_2022 <- svyby(~VD4046d, by = ~Reg, PNADC2022, svytotal, na.rm = TRUE)
+
+mediarenda_BR_idosos60a64_2022 <- svytotal(~VD4046d, design=subset(PNADC2022,VD2006=="60 a 64 anos"), na.rm=TRUE)
+mediarenda_BR_idosos60a64_2022 <- as.data.frame(mediarenda_BR_idosos60a64_2022)
+mediarenda_BR_idosos65a69_2022 <- svytotal(~VD4046d, design=subset(PNADC2022,VD2006=="65 a 69 anos"), na.rm=TRUE)
+mediarenda_BR_idosos65a69_2022 <- as.data.frame(mediarenda_BR_idosos65a69_2022)
+mediarenda_BR_idosos70a74_2022 <- svytotal(~VD4046d, design=subset(PNADC2022,VD2006=="70 a 74 anos"), na.rm=TRUE)
+mediarenda_BR_idosos70a74_2022 <- as.data.frame(mediarenda_BR_idosos70a74_2022)
+mediarenda_BR_idosos75a79_2022 <- svytotal(~VD4046d, design=subset(PNADC2022,VD2006=="75 a 79 anos"), na.rm=TRUE)
+mediarenda_BR_idosos75a79_2022 <- as.data.frame(mediarenda_BR_idosos75a79_2022)
+mediarenda_BR_idosos80oumais_2022 <- svytotal(~VD4046d, design=subset(PNADC2022,VD2006=="80 anos ou mais"), na.rm=TRUE)
+mediarenda_BR_idosos80oumais_2022 <- as.data.frame(mediarenda_BR_idosos80oumais_2022)
+
+mediarenda_UF_idosos60a64_2022 <- svyby(~VD4046d, by = ~UF, design=subset(PNADC2022,VD2006=="60 a 64 anos"), svytotal, na.rm = TRUE)
+mediarenda_UF_idosos65a69_2022 <- svyby(~VD4046d, by = ~UF, design=subset(PNADC2022,VD2006=="65 a 69 anos"), svytotal, na.rm = TRUE)
+mediarenda_UF_idosos70a74_2022 <- svyby(~VD4046d, by = ~UF, design=subset(PNADC2022,VD2006=="70 a 74 anos"), svytotal, na.rm = TRUE)
+mediarenda_UF_idosos75a79_2022 <- svyby(~VD4046d, by = ~UF, design=subset(PNADC2022,VD2006=="75 a 79 anos"), svytotal, na.rm = TRUE)
+mediarenda_UF_idosos80oumais_2022 <- svyby(~VD4046d, by = ~UF, design=subset(PNADC2022,VD2006=="80 anos ou mais"), svytotal, na.rm = TRUE)
+
+mediarenda_Reg_idosos60a64_2022 <- svyby(~VD4046d, by = ~Reg, design=subset(PNADC2022,VD2006=="60 a 64 anos"), svytotal, na.rm = TRUE)
+mediarenda_Reg_idosos65a69_2022 <- svyby(~VD4046d, by = ~Reg, design=subset(PNADC2022,VD2006=="65 a 69 anos"), svytotal, na.rm = TRUE)
+mediarenda_Reg_idosos70a74_2022 <- svyby(~VD4046d, by = ~Reg, design=subset(PNADC2022,VD2006=="70 a 74 anos"), svytotal, na.rm = TRUE)
+mediarenda_Reg_idosos75a79_2022 <- svyby(~VD4046d, by = ~Reg, design=subset(PNADC2022,VD2006=="75 a 79 anos"), svytotal, na.rm = TRUE)
+mediarenda_Reg_idosos80oumais_2022 <- svyby(~VD4046d, by = ~Reg, design=subset(PNADC2022,VD2006=="80 anos ou mais"), svytotal, na.rm = TRUE)
+
+
+#Exportando
+
+setwd("S:/DESRE/BOLETIM SOCIAL/15. IDOSO/Dados/Mercado de trabalho/Microdados PNADC/Rendimento médio mensal/Brutos")
+write.xlsx(mediarenda_total_BR_2022, 'massarendimento_poptotal_BR_2022.xlsx')
+write.xlsx(mediarenda_total_UF_2022, 'massarendimento_poptotal_UF_2022.xlsx')
+write.xlsx(mediarenda_total_Reg_2022, 'massarendimento_poptotal_Reg_2022.xlsx')
+write.xlsx(mediarenda_BR_idosos60a64_2022, 'massarendimento_idoso60a64_BR_2022.xlsx')
+write.xlsx(mediarenda_BR_idosos65a69_2022, 'massarendimento_idoso65a69_BR_2022.xlsx')
+write.xlsx(mediarenda_BR_idosos70a74_2022, 'massarendimento_idoso70a74_BR_2022.xlsx')
+write.xlsx(mediarenda_BR_idosos75a79_2022, 'massarendimento_idoso75a79_BR_2022.xlsx')
+write.xlsx(mediarenda_BR_idosos80oumais_2022, 'massarendimento_idoso80oumais_BR_2022.xlsx')
+write.xlsx(mediarenda_UF_idosos60a64_2022, 'massarendimento_idoso60a64_UF_2022.xlsx')
+write.xlsx(mediarenda_UF_idosos65a69_2022, 'massarendimento_idoso65a69_UF_2022.xlsx')
+write.xlsx(mediarenda_UF_idosos70a74_2022, 'massarendimento_idoso70a74_UF_2022.xlsx')
+write.xlsx(mediarenda_UF_idosos75a79_2022, 'massarendimento_idoso75a79_UF_2022.xlsx')
+write.xlsx(mediarenda_UF_idosos80oumais_2022, 'massarendimento_idoso80oumais_UF_2022.xlsx')
+write.xlsx(mediarenda_Reg_idosos60a64_2022, 'massarendimento_idoso60a64_Reg_2022.xlsx')
+write.xlsx(mediarenda_Reg_idosos65a69_2022, 'massarendimento_idoso65a69_Reg_2022.xlsx')
+write.xlsx(mediarenda_Reg_idosos70a74_2022, 'massarendimento_idoso70a74_Reg_2022.xlsx')
+write.xlsx(mediarenda_Reg_idosos75a79_2022, 'massarendimento_idoso75a79_Reg_2022.xlsx')
+write.xlsx(mediarenda_Reg_idosos80oumais_2022, 'massarendimento_idoso80oumais_Reg_2022.xlsx')
+
