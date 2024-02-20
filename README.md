@@ -15,7 +15,7 @@ No repositório, apenas os arquivos necessários para o objetivo final (despesas
 
 ## Procedimentos
 1. Baixar material em https://www.ibge.gov.br/estatisticas/sociais/saude/24786-pesquisa-de-orcamentos-familiares-2.html?=&t=microdados
--	Dados (contém os microdados em formato ".txt")
+-	Dados (contém os microdados em formato ".txt"; para informações de despesas, apenas alguns cadernos serão utilizados)
 -	Documentação (arquivos "Manual do Agente de Pesquisa" e "Dicionários de váriaveis" usados para suporte)
 -	Tradutores das Tabelas (<code style="color : red">ATENÇÃO</code>: arquivo "Tradutor_Despesa_Geral" contém erros que foram corrigidos neste repositório; utilizar o corrigido)
 -	Programas de Leitura (arquivo "Leitura dos microdados – R")
