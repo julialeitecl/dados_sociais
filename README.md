@@ -1,4 +1,4 @@
-<h1 align="center">Indicadores Sociais</h1>
+<h1 align="center">Pesquisa de Orçamentos Familiares (POF)</h1>
 <p align="center"><i>Repositório para documentação do tratamento de microdados da Pesquisa de Orçamentos Familiares (POF) 2017-2018 do IBGE.</i></p>
 
 # Sobre esse projeto
