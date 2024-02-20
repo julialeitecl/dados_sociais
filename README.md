@@ -14,7 +14,7 @@ No repositório, apenas os arquivos necessários para o objetivo final (despesas
 1. Baixar material em https://www.ibge.gov.br/estatisticas/sociais/saude/24786-pesquisa-de-orcamentos-familiares-2.html?=&t=microdados
 -	Dados (contém os microdados em formato ".txt")
 -	Documentação (arquivos "Manual do Agente de Pesquisa" e "Dicionários de váriaveis" usados para suporte)
--	Tradutores das Tabelas (<code style="color : red">atenção</code>: arquivo "Tradutor_Despesa_Geral" contém erros que foram corrigidos neste repositório; utilizar o corrigido)
+-	Tradutores das Tabelas ($${\color{red}atenção}$$: arquivo "Tradutor_Despesa_Geral" contém erros que foram corrigidos neste repositório; utilizar o corrigido)
 -	Programas de Leitura (arquivo "Leitura dos microdados – R")
   
 2. Abrir pasta “Dados” para transformar arquivos em formato “.txt” para “.Rds” (para a memória de cálculo do R) 
@@ -26,6 +26,6 @@ No repositório, apenas os arquivos necessários para o objetivo final (despesas
 ## Tecnologias utilizadas
 <p display="inline-block">
   <img width="48" src="https://www.r-project.org/logo/Rlogo.png" alt="R-logo"/>
-  <img width="56" src="https://www.rstudio.com/wp-content/uploads/2018/10/RStudio-Logo-Flat.png" alt="RStudio-logo"/>
-  <img width="48" scr="https://img-prod-cms-rt-microsoft-com.akamaized.net/cms/api/am/imageFileData/RE2PRmJ?ver=cf0f&q=90&m=6&h=270&w=270&b=%23FFFFFFFF&f=jpg&o=f&aim=true" alt="excel-logo"/>
+  <img width="70" src="https://www.rstudio.com/wp-content/uploads/2018/10/RStudio-Logo-Flat.png" alt="RStudio-logo"/>
+  <img width="48" scr="https://cdn-dynmedia-1.microsoft.com/is/image/microsoftcorp/Icon_Excel_36x36_2x?fmt=png-alpha"/>
 </p>
