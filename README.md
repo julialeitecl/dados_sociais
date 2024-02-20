@@ -32,7 +32,7 @@ No repositório, apenas os arquivos necessários para o objetivo final (despesas
 Obs1: caso sejam necessários novos filtros de famílias por características dos moradores, editar de acordo com o caderno de “Morador”, alterando as variáveis e os parâmetros na linha 238. A saber:
 `Morador <- Morador %>% mutate(IDOSO = case_when(V0403>=60 ~ 1,  TRUE  ~ 0))`
 
-Obs2: Usar para tradutor de despesas o arquivo “Tradutor_Despesa_Geral_corrigido”, (na mesma pasta do atual arquivo), para evitar erros de escrita do arquivo original do IBGE
+Obs2: Usar para tradutor de despesas o arquivo “Tradutor_Despesa_Geral_corrigido”, criado pelo atual projeto, para evitar erros de escrita do arquivo original do IBGE
 
 ## Tecnologias utilizadas
 <p display="inline-block">
