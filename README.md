@@ -39,3 +39,7 @@ Obs2: Usar para tradutor de despesas o arquivo “Tradutor_Despesa_Geral_corrigi
   <img width="48" src="https://www.r-project.org/logo/Rlogo.png" alt="R-logo"/>
   <img width="85" src="https://www.rstudio.com/wp-content/uploads/2018/10/RStudio-Logo-Flat.png" alt="RStudio-logo"/>
 </p>
+
+## Autores do projeto
+**Júlia Cristina Lucas Leite** - https://github.com/julialeitecl / https://www.linkedin.com/in/juliacristinaleite/
+**Carlos Henrique Candido de Sousa** - https://github.com/caique-codes / https://www.linkedin.com/in/carlos-henrique-432060a3
