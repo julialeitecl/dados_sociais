@@ -15,24 +15,24 @@ No repositório, apenas os arquivos necessários para o objetivo final (despesas
 
 ## Procedimentos
 1. Baixar material em https://www.ibge.gov.br/estatisticas/sociais/saude/24786-pesquisa-de-orcamentos-familiares-2.html?=&t=microdados
--	Dados (contém os microdados em formato ".txt"; para informações de despesas, apenas alguns cadernos serão utilizados)
--	Documentação (arquivos "Manual do Agente de Pesquisa" e "Dicionários de váriaveis" usados para suporte)
--	Tradutores das Tabelas (<code style="color : red">ATENÇÃO</code>: arquivo "Tradutor_Despesa_Geral" contém erros que foram corrigidos neste repositório; utilizar o corrigido)
--	Programas de Leitura (arquivo "Leitura dos microdados – R")
+  -	Dados (contém os microdados em formato ".txt"; para informações de despesas, apenas alguns cadernos serão utilizados)
+  -	Documentação (arquivos "Manual do Agente de Pesquisa" e "Dicionários de váriaveis" usados para suporte)
+  -	Tradutores das Tabelas (<code style="color : red">ATENÇÃO</code>: arquivo "Tradutor_Despesa_Geral" contém erros que foram corrigidos neste repositório; utilizar o corrigido)
+  -	Programas de Leitura (arquivo "Leitura dos microdados – R")
   
 2. Abrir pasta “Dados” para transformar arquivos em formato “.txt” para “.Rds” (para a memória de cálculo do R) 
--	O script está em: Programa de leituras > R > Leitura dos microdados – R; também está na pasta "Suporte" deste repositório
--	Copiar caminho da pasta “Dados” para substituir dentro de “setwd(...)” no script "Despesas"
+  -	O script está em: Programa de leituras > R > Leitura dos microdados – R; também está na pasta "Suporte" deste repositório
+  -	Copiar caminho da pasta “Dados” para substituir dentro de “setwd(...)” no script "Despesas"
 
 3. Abrir script “Despesas” (criado para este trabalho)
 
 4. Substituir no script “Despesas” os caminhos dos dados transformados em “.Rds” e o caminho onde serão salvos os dados em Excel
 
 ### Observações
-Obs1: caso sejam necessários novos filtros de famílias por características dos moradores, editar de acordo com o caderno de “Morador”, alterando as variáveis e os parâmetros na linha 238. A saber:
-`Morador <- Morador %>% mutate(IDOSO = case_when(V0403>=60 ~ 1,  TRUE  ~ 0))`
-
-Obs2: Usar para tradutor de despesas o arquivo “Tradutor_Despesa_Geral_corrigido”, criado pelo atual projeto, para evitar erros de escrita do arquivo original do IBGE
+  Obs1: caso sejam necessários novos filtros de famílias por características dos moradores, editar de acordo com o caderno de “Morador”, alterando as variáveis e os parâmetros na linha 238. A saber:
+  `Morador <- Morador %>% mutate(IDOSO = case_when(V0403>=60 ~ 1,  TRUE  ~ 0))`
+  
+  Obs2: Usar para tradutor de despesas o arquivo “Tradutor_Despesa_Geral_corrigido”, criado pelo atual projeto, para evitar erros de escrita do arquivo original do IBGE
 
 ## Tecnologias utilizadas
 <p display="inline-block">
