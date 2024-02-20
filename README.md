@@ -26,6 +26,6 @@ No repositório, apenas os arquivos necessários para o objetivo final (despesas
 ## Tecnologias utilizadas
 <p display="inline-block">
   <img width="48" src="https://www.r-project.org/logo/Rlogo.png" alt="R-logo"/>
-  <img width="48" src="https://www.rstudio.com/wp-content/uploads/2018/10/RStudio-Logo-Flat.png" alt="RStudio-logo"/>
-  <img width="48" scr="https://upload.wikimedia.org/wikipedia/commons/3/34/Microsoft_Office_Excel_%282019%E2%80%93present%29.svg" alt="excel-logo"/>
+  <img width="56" src="https://www.rstudio.com/wp-content/uploads/2018/10/RStudio-Logo-Flat.png" alt="RStudio-logo"/>
+  <img width="48" scr="https://img-prod-cms-rt-microsoft-com.akamaized.net/cms/api/am/imageFileData/RE2PRmJ?ver=cf0f&q=90&m=6&h=270&w=270&b=%23FFFFFFFF&f=jpg&o=f&aim=true" alt="excel-logo"/>
 </p>
