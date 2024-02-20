@@ -41,5 +41,10 @@ Obs2: Usar para tradutor de despesas o arquivo “Tradutor_Despesa_Geral_corrigi
 </p>
 
 ## Autores do projeto
-**Júlia Cristina Lucas Leite** - https://github.com/julialeitecl / https://www.linkedin.com/in/juliacristinaleite/
-**Carlos Henrique Candido de Sousa** - https://github.com/caique-codes / https://www.linkedin.com/in/carlos-henrique-432060a3
+**Júlia Cristina Lucas Leite** 
+  - https://github.com/julialeitecl
+  - https://www.linkedin.com/in/juliacristinaleite/
+
+**Carlos Henrique Candido de Sousa** 
+  - https://github.com/caique-codes
+  - https://www.linkedin.com/in/carlos-henrique-432060a3
